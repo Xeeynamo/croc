@@ -1,0 +1,10 @@
+-r n64splat/requirements.txt
+pre-commit
+black
+pycparser
+watchdog
+tqdm
+intervaltree
+colorama
+python-Levenshtein
+cxxfilt

@@ -1,0 +1,29 @@
+options:
+  platform:     psx
+  basename:     croc
+  base_path:    ..
+  target_path:  iso/CROC.EXE
+  asm_path:     asm/croc
+  asset_path:   assets/croc
+  src_path:     src/croc
+  compiler:     GCC
+  symbol_addrs_path:    config/symbols.sled00038.croc.txt
+  undefined_funcs_auto_path: config/undefined_funcs_auto.sled00038.croc.txt
+  undefined_syms_auto_path:  config/undefined_syms_auto.sled00038.croc.txt
+  find_file_boundaries: yes
+  use_legacy_include_asm: no
+  migrate_rodata_to_functions: no
+segments:
+  - [0x800, header]
+  - name: croc
+    type: code
+    start: 0x00000800
+    vram:  0x80010000
+    subalign: 4
+    subsegments:
+      - [0x800, rodata] # rdata
+      - [0x3038, c] # text
+      - [0x5B154, data] # data
+      - [0x64340, data] # sdata
+      - [0x64738, data] # bss
+  - [0x64800]

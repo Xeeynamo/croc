@@ -573,17 +573,12 @@ struct TMD_STRUCT {
 
 #define minmax4(x1, x2, x3, x4, x5, x6)                                        \
     x1 > x2 ? (x6 = x1, x5 = x2) : (x5 = x1, x6 = x2),                         \
-        x3 > x6   ? x6 = x3                                                    \
-        : x3 < x5 ? x5 = x3                                                    \
-                  : 0,                                                         \
-                  x4 > x6   ? x6 = x4                                          \
-                  : x4 < x5 ? x5 = x4                                          \
-                            : 0
+        x3 > x6 ? x6 = x3 : x3 < x5 ? x5 = x3 : 0,                             \
+                  x4 > x6 ? x6 = x4 : x4 < x5 ? x5 = x4 : 0
 
 #define minmax3(x1, x2, x3, x4, x5)                                            \
-    x1 > x2 ? (x5 = x1, x4 = x2) : (x4 = x1, x5 = x2), x3 > x5   ? x5 = x3     \
-                                                       : x3 < x4 ? x4 = x3     \
-                                                                 : 0
+    x1 > x2 ? (x5 = x1, x4 = x2) : (x4 = x1, x5 = x2),                         \
+        x3 > x5 ? x5 = x3 : x3 < x4 ? x4 = x3 : 0
 
 typedef struct {
     short vx, vy, vz;

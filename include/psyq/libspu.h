@@ -181,9 +181,10 @@
 #define SPU_COMMON_CDMIX (0x01 << 9)    /* CD 入力 オン/オフ                  */
 #define SPU_COMMON_EXTVOLL (0x01 << 10) /* 外部デジタル入力 音量 (左) */
 #define SPU_COMMON_EXTVOLR (0x01 << 11) /* 外部デジタル入力 音量 (右) */
-#define SPU_COMMON_EXTREV (0x01 << 12)  /* 外部デジタル入力 リバーブオン/オフ  \
-                                         */
-#define SPU_COMMON_EXTMIX (0x01 << 13)  /* 外部デジタル入力 オン/オフ  */
+#define SPU_COMMON_EXTREV                                                      \
+    (0x01 << 12)                       /* 外部デジタル入力 リバーブオン/オフ   \
+                                        */
+#define SPU_COMMON_EXTMIX (0x01 << 13) /* 外部デジタル入力 オン/オフ  */
 
 /* for Reverb setting */
 

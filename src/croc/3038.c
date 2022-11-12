@@ -1,4 +1,186 @@
 #include "common.h"
+#include <libsnd.h>
+#include <libcd.h>
+
+#define FLAGS_PLAYERACTION_UNK02 0x00000002
+#define FLAGS_PLAYERACTION_UNK04 0x00000004
+#define FLAGS_PLAYERACTION_PLAYANIM 0x00000008
+#define FLAGS_PLAYERACTION_HASSHADOW 0x00000020
+#define FLAGS_PLAYERACTION_PAUSETRIGGERS 0x00000040
+#define FLAGS_PLAYERACTION_HIDE 0x00080000
+#define FLAGS_PLAYERACTION_CTRLSPEED 0x00200000
+#define FLAGS_PLAYERACTION_PUSHABLE 0x01000000
+#define FLAGS_PLAYERACTION_CTRLJUMP 0x02000000
+#define FLAGS_PLAYERACTION_ATTACK 0x10000000
+#define FLAGS_PLAYERACTION_COLLISIONOFF 0x40000000
+#define FLAGS_PLAYERACTION_PUSHING 0x80000000
+
+typedef struct {
+    s16 a1, a2;
+    s32 b, c, d, e, f;
+} CamPos; /* size = 0x18 */
+
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+} UnkStruct1;
+
+typedef struct {
+    /* 000 */ s8* data;
+    /* 004 */ s32 unk4;
+    /* 008 */ s32 unk8;
+    /* 00C */ s32 unkC;
+    /* 010 */ s32 unk10;
+    /* 014 */ s32 unk14;
+    /* 018 */ s32 unk18;
+    /* 01C */ s32 unk1C;
+    /* 020 */ s32 unk20;
+    /* 024 */ s32 unk24;
+    /* 028 */ s8 unk28[0x11C];
+    /* 144 */ s32 unk144;
+    /* 148 */ s32 unk148;
+    /* 14C */ s32 unk14C;
+    /* 150 */ s8 unk150[0x24];
+    /* 174 */ s32 unk174;
+    /* 178 */ s32 unk178;
+    /* 17C */ s32 unk17C;
+    /* 180 */ s32 unk180;
+    /* 184 */ s32 unk184;
+    /* 188 */ s32 unk188;
+    /* 18C */ UnkStruct1* unk18C;
+    /* 190 */ s32 unk190;
+    /* 194 */ s32 unk194;
+    /* 198 */ s8 unk198[0x1D0];
+    /* 368 */ CamPos unk368;
+    /* 380 */ s8 unk380[0x18];
+    /* 398 */ CamPos unk398;
+    /* 3B0 */ s8 unk3b0[0x24];
+    /* 3D4 */ s32 shadowSize;
+    /* 3D8 */ s8 shadowType;
+} Strategy; /* size = ??? */
+
+extern s32 CameraHold;
+extern s32 CameraHeight;
+extern s32 CameraDist;
+extern s32 CameraDistUse;
+extern Strategy* CameraLookAtStrat;
+extern Strategy* CameraLookAtStrat2;
+extern s32 GobboDir;
+extern s32 GobboXPos;
+extern s32 OldGobboCount;
+extern s32 vb_timer;
+extern s32 LevelReset;
+extern s32 BonusDisplay;
+extern void* CardDir;
+
+void stCommandError(Strategy* st);
+void stLoadObject(Strategy* st);
+void stLoadSprite(Strategy* st);
+void stLoadAnim(Strategy* st);
+void stLoadSample(Strategy* st);
+void stLoadAnimFlag(Strategy* st);
+void stTurnTowardX(Strategy* st);
+void stTurnTowardY(Strategy* st);
+void stTurnTowardWaypointX(Strategy* st);
+void stPlaySound(Strategy* st);
+void stStopSound(Strategy* st);
+void stPlayAnim(Strategy* st);
+void stStopAnim(Strategy* st);
+void stWaitAnimend(Strategy* st);
+void stPrint(Strategy* st);
+void stSpecialFXOn(Strategy* st);
+void stWait(Strategy* st);
+void stRepeat(Strategy* st);
+void stUntil(Strategy* st);
+void stWhile(Strategy* st);
+void stEndWhile(Strategy* st);
+void stIf(Strategy* st);
+void stElse(Strategy* st);
+void stIfAnimend(Strategy* st);
+void stFor(Strategy* st);
+void stNext(Strategy* st);
+void stSwitch(Strategy* st);
+void stEndCase(Strategy* st);
+void stProcCall(Strategy* st);
+void stResetPosition(Strategy* st);
+void stGoto(Strategy* st);
+void stScaleX(Strategy* st);
+void stScaleY(Strategy* st);
+void stScaleZ(Strategy* st);
+void stJump(Strategy* st);
+void stFall(Strategy* st);
+void stMoveBackward(Strategy* st);
+void stMoveForward(Strategy* st);
+void stMoveRight(Strategy* st);
+void stMoveDown(Strategy* st);
+void stMoveLeft(Strategy* st);
+void stMoveUp(Strategy* st);
+void stTurnRight(Strategy* st);
+void stTurnLeft(Strategy* st);
+void stTiltBackward(Strategy* st);
+void stTiltForward(Strategy* st);
+void stTiltRight(Strategy* st);
+void stTiltLeft(Strategy* st);
+void stSpawn(Strategy* st);
+void stCreateTrigger(Strategy* st);
+void stKillTrigger(Strategy* st);
+void stCommandError(Strategy* st);
+void stEndTrigger(Strategy* st);
+void stRemove(Strategy* st);
+void stLetGVar(Strategy* st);
+void stLetPGVar(Strategy* st);
+void stLetAVar(Strategy* st);
+void stEndProc(Strategy* st);
+void stSetModel(Strategy* st);
+void stFileEnd(Strategy* st);
+void stBlink(Strategy* st);
+void stHoldTrigger(Strategy* st);
+void stReleaseTrigger(Strategy* st);
+void stSetAnim(Strategy* st);
+void stTurnTowardXY(Strategy* st);
+void stCommandError(Strategy* st);
+void stHold(Strategy* st);
+void stRelease(Strategy* st);
+void stInc(Strategy* st);
+void stPlayerAttackOn(Strategy* st);
+void stPlayerAttackOff(Strategy* st);
+void stCamWobble(Strategy* st);
+void stLookAtMe(Strategy* st);
+void stShadowSize(Strategy* st);
+void stShadowType(Strategy* st);
+void stClearAnim(Strategy* st);
+void stStopFall(Strategy* st);
+void stSetPlayerPosRel(Strategy* st);
+void stCollectKey(Strategy* st);
+void stRemoveKey(Strategy* st);
+void stCommandError(Strategy* st);
+void stCommandError(Strategy* st);
+void stCollisionOn(Strategy* st);
+void stCollisionOff(Strategy* st);
+void stPauseTriggers(Strategy* st);
+void stUnpauseTriggers(Strategy* st);
+void stSetPosition(Strategy* st);
+void stIsPlayer(Strategy* st);
+void stIfJumping(Strategy* st);
+void stIfFalling(Strategy* st);
+void stScale(Strategy* st);
+void stTurnTowardWaypointY(Strategy* st);
+void stHide(Strategy* st);
+
+s32 getPCword(Strategy*);
+
+void srand(unsigned int seed);
+s32 rcos(s32);
+s32 rsin(s32);
+s32 stEvaluate(Strategy* st);
+void CameraResetPos();
+void AccPlatStuff(Strategy* st, s32 arg);
+void InitStats();
+void GetDirectory(void**);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", VBInt);
 
@@ -198,8 +380,10 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", QuickReset);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stInitStrategyCode);
 
+void push_stack(s8* data);
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", push_stack);
 
+s8* pop_stack();
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", pop_stack);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stAddStrategy);
@@ -214,15 +398,26 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSetCollPoint);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSetCollPoints);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPlayerCollisionOn);
+void stPlayerCollisionOn(Strategy* st) {
+    st->data++;
+    st->unk174 &= ~FLAGS_PLAYERACTION_COLLISIONOFF;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPlayerCollisionOff);
+void stPlayerCollisionOff(Strategy* st) {
+    st->data++;
+    st->unk174 |= FLAGS_PLAYERACTION_COLLISIONOFF;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stActivated);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stUnActivated);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stCollected);
+void stCollected(Strategy* arg0) {
+    arg0->data++;
+    if (arg0->unk18C) {
+        arg0->unk18C->unk14 |= 4;
+    }
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPlayerNoStood);
 
@@ -230,33 +425,50 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stRemoveFromMap);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stRemoveModel);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stRemove);
+void stRemove(Strategy* st) {
+    st->unk174 |= FLAGS_PLAYERACTION_UNK02 | FLAGS_PLAYERACTION_UNK04;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stRelease);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stHold);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLoadObject);
+void stLoadObject(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLoadSample);
+void stLoadSample(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLoadAnim);
+void stLoadAnim(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLoadAnimFlag);
+void stLoadAnimFlag(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLoadSprite);
+void stLoadSprite(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stHide);
+void stHide(Strategy* st) {
+    st->data++;
+    st->unk174 |= FLAGS_PLAYERACTION_HIDE;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stUnhide);
+void stUnhide(Strategy* st) {
+    st->data++;
+    st->unk174 &= ~FLAGS_PLAYERACTION_HIDE;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stNoHang);
+void stNoHang(Strategy* st) {
+    st->data++;
+    st->unk178 |= 0x100;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stOpenEyes);
+void stOpenEyes(Strategy* st) {
+    st->data++;
+    st->unk17C = 0;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLineNumber);
+void stLineNumber(Strategy* st) { st->data += 3; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stHeightFloat);
+void stHeightFloat(Strategy* st) {
+    st->data++;
+    st->unk14C = 699;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stCloseEyes);
 
@@ -276,9 +488,16 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stStopSound);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPlayAnim);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stClearAnim);
+void stClearAnim(Strategy* st) {
+    st->data++;
+    st->unk174 &= ~FLAGS_PLAYERACTION_PLAYANIM;
+    st->unk24 = 0;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stStopAnim);
+void stStopAnim(Strategy* st) {
+    st->data++;
+    st->unk174 &= ~FLAGS_PLAYERACTION_PLAYANIM;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stWaitAnimend);
 
@@ -292,7 +511,11 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPrint);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stWait);
 
+#ifndef NON_MATCHING
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stRepeat);
+#else
+void stRepeat(Strategy* st) { push_stack(st->data++); }
+#endif
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stUntil);
 
@@ -354,9 +577,15 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stMoveRight);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stMoveLeft);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSpecialFXOn);
+void stSpecialFXOn(Strategy* st) {
+    st->data++;
+    stEvaluate(st);
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSpecialFXOff);
+void stSpecialFXOff(Strategy* st) {
+    st->data++;
+    stEvaluate(st);
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stMoveUp);
 
@@ -432,17 +661,40 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stWaitEvent);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLetAVar);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stEndProc);
+void stEndProc(Strategy* st) { st->data = pop_stack(); }
 
+#ifndef NON_MATCHING
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stProcCall);
+#else
+void stProcCall(Strategy* st) {
+    u8* stack = st->data;
+    st->data++;
+    push_stack(stack + 3);
+    st->data = getPCword(st) + st->unk4;
+}
+#endif
 
+#ifndef NON_MATCHING
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stGoto);
+#else
+void stGoto(Strategy* st) {
+    st->data++;
+    st->data = getPCword(st) + st->unk4;
+    st->unk174 |= 2;
+}
+#endif
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPauseTriggers);
+void stPauseTriggers(Strategy* st) {
+    st->data++;
+    st->unk174 |= FLAGS_PLAYERACTION_PAUSETRIGGERS;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPauseTriggersNoAnim);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stUnpauseTriggers);
+void stUnpauseTriggers(Strategy* st) {
+    st->data++;
+    st->unk174 &= ~FLAGS_PLAYERACTION_PAUSETRIGGERS;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSetModel);
 
@@ -462,27 +714,39 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stQuickPlayer);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stIsPlayer);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stReSeed);
+void stReSeed(Strategy* st) {
+    st->data++;
+    srand(vb_timer);
+}
 
+void MarkLevelComplete();
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", MarkLevelComplete);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stEndLevel);
+void stEndLevel(Strategy* st) {
+    st->data++;
+    MarkLevelComplete();
+    LevelReset = 4;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CheckForSecret);
 
+void stNextLevel(Strategy* st);
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stNextLevel);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stEndSubLevel);
+void stEndSubLevel(Strategy* st) {
+    InitStats();
+    stNextLevel(st);
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSetLevel);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPushCamera);
+void stPushCamera(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPullCamera);
+void stPullCamera(Strategy* st) { st->data++; }
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stNearestWaypointNext);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stNearestWaypointPrev);
+void stNearestWaypointPrev(Strategy* st) { st->data++; }
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPushWaypoint);
 
@@ -490,7 +754,10 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPullWaypoint);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stDeleteWaypoint);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stFirstWaypoint);
+void stFirstWaypoint(Strategy* st) {
+    st->data++;
+    st->unk190 = st->unk194;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stNextWaypoint);
 
@@ -498,91 +765,203 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPrevWaypoint);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", AccPlatStuff);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSpeedUp);
+void stSpeedUp(Strategy* st) {
+    st->data++;
+    AccPlatStuff(st, stEvaluate(st));
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSmoothSpeed);
+void stSmoothSpeed(Strategy* st) {
+    st->data++;
+    AccPlatStuff(st, stEvaluate(st));
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSlowDown);
+void stSlowDown(Strategy* st) {
+    st->data++;
+    stEvaluate(st);
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stInc);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stDec);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLookAtMe);
+void stLookAtMe(Strategy* st) {
+    st->data++;
+    CameraLookAtStrat = st;
+    CameraResetPos();
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLookAtMe2);
+void stLookAtMe2(Strategy* st) {
+    st->data++;
+    CameraLookAtStrat2 = st;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stTurnOffLookAtMe2);
+void stTurnOffLookAtMe2(Strategy* st) {
+    st->data++;
+    CameraLookAtStrat2 = 0;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLookAtMeMap);
+void stLookAtMeMap(Strategy* st) {
+    st->data++;
+    CameraLookAtStrat = st;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stVibrate);
+void stVibrate(Strategy* st) {
+    st->data++;
+    stEvaluate(st);
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stCamWobble);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stCamHold);
+void stCamHold(Strategy* st) {
+    st->data++;
+    CameraHold = stEvaluate(st) >> 0x10;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSetCamHeight);
+void stSetCamHeight(Strategy* st) {
+    st->data++;
+    CameraHeight = stEvaluate(st) >> 4;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSetCamDist);
+void stSetCamDist(Strategy* st) {
+    st->data++;
+    CameraDistUse = CameraDist = stEvaluate(st) >> 4;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSetPosition);
+void stSetPosition(Strategy* st) {
+    st->data++;
+    st->unk398 = st->unk368;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stResetPosition);
+void stResetPosition(Strategy* st) {
+    st->data++;
+    st->unk368 = st->unk398;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stJumpCtrlOn);
+void stJumpCtrlOn(Strategy* st) {
+    st->data++;
+    st->unk174 |= FLAGS_PLAYERACTION_CTRLJUMP;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stJumpCtrlOff);
+void stJumpCtrlOff(Strategy* st) {
+    st->data++;
+    st->unk174 &= ~FLAGS_PLAYERACTION_CTRLJUMP;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPlayerAttackOn);
+void stPlayerAttackOn(Strategy* st) {
+    st->data++;
+    st->unk174 |= FLAGS_PLAYERACTION_ATTACK;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPlayerAttackOff);
+void stPlayerAttackOff(Strategy* st) {
+    st->data++;
+    st->unk174 &= ~FLAGS_PLAYERACTION_ATTACK;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stAnimCtrlSpdOn);
+void stAnimCtrlSpdOn(Strategy* st) {
+    st->data++;
+    st->unk174 |= FLAGS_PLAYERACTION_CTRLSPEED;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stAnimCtrlSpdOff);
+void stAnimCtrlSpdOff(Strategy* st) {
+    st->data++;
+    st->unk174 &= 0xFFDFFFFF;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPlayerDead);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stRemoveGobbo);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stGobboON);
+void stGobboON(Strategy* st) {
+    st->data++;
+    GobboXPos = 390;
+    GobboDir = 0;
+    OldGobboCount = -1;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stGobboOFF);
+void stGobboOFF(Strategy* st) {
+    st->data++;
+    GobboXPos = 600;
+    GobboDir = -1;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSetCamera);
+void stSetCamera(Strategy* st) {
+    st->data++;
+    stEvaluate(st);
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stShadowOn);
+void stShadowOn(Strategy* st) {
+    st->data++;
+    st->unk174 |= FLAGS_PLAYERACTION_HASSHADOW;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stShadowOff);
+void stShadowOff(Strategy* st) {
+    st->data++;
+    st->unk174 &= ~FLAGS_PLAYERACTION_HASSHADOW;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stShadowSize);
+void stShadowSize(Strategy* st) {
+    st->data++;
+    st->shadowSize = stEvaluate(st);
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stShadowType);
+void stShadowType(Strategy* st) {
+    st->data++;
+    st->shadowType = *st->data++;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPushingOn);
+void stPushingOn(Strategy* st) {
+    st->data++;
+    st->unk174 |= FLAGS_PLAYERACTION_PUSHING;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPushingOff);
+void stPushingOff(Strategy* st) {
+    st->data++;
+    st->unk174 &= ~FLAGS_PLAYERACTION_PUSHING;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSlideOn);
+void stSlideOn(Strategy* st) {
+    st->data++;
+    st->unk178 |= 1;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stSlideOff);
+void stSlideOff(Strategy* st) {
+    st->data++;
+    st->unk178 &= ~1;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPushableOn);
+void stPushableOn(Strategy* st) {
+    st->data++;
+    st->unk174 |= FLAGS_PLAYERACTION_PUSHABLE;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPushableOff);
+void stPushableOff(Strategy* st) {
+    st->data++;
+    st->unk174 &= ~FLAGS_PLAYERACTION_PUSHABLE;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stHangOn);
+void stHangOn(Strategy* st) {
+    st->data++;
+    st->unk178 |= 0x1000;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stHangOff);
+void stHangOff(Strategy* st) {
+    st->data++;
+    st->unk178 &= ~0x1000;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stFlashOn);
+void stFlashOn(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stFlashOff);
+void stFlashOff(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", MoveStratForwardAngle);
+void MoveStratForwardAngle(Strategy* st, s32 arg1, s32 angle) {
+    st->unk368.c += (arg1 * rsin(angle)) >> 0xC;
+    st->unk368.e += (arg1 * rcos(angle)) >> 0xC;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", MoveStratForward);
+void MoveStratForward(Strategy* st, s32 arg1) {
+    st->unk368.c += (arg1 * rsin(st->unk368.a2)) >> 0xC;
+    st->unk368.e += (arg1 * rcos(st->unk368.a2)) >> 0xC;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stMovePosition);
 
@@ -648,6 +1027,7 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", HasSFXfinished);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SFXStop);
 
+void SFXStopAll(s32);
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SFXStopAll);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SFXPause);
@@ -750,7 +1130,7 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SaveGame);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", LoadGame);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", ReadDir);
+void ReadDir(void) { GetDirectory(&CardDir); }
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", ResetGame);
 
@@ -808,9 +1188,10 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", Fade2WhiteQuick);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", FadeinFromWhite);
 
+void DoWipeRotate();
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", DoWipeRotate);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", WipeRotateNoMusicFade);
+void WipeRotateNoMusicFade(void) { DoWipeRotate(); }
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", WipeRotate);
 
@@ -860,9 +1241,12 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CameraTitleInit);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CameraTitleStrategy);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stTonyTest);
+void stTonyTest(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLewisTest);
+void stLewisTest(Strategy* st) {
+    st->data += 2;
+    stEvaluate(st);
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", PlayerMoveReset);
 
@@ -870,11 +1254,11 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stDecelerateAngle);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stAccelerateAngle);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stDecelerate);
+void stDecelerate(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stReverse);
+void stReverse(Strategy* st) { st->data++; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stAccelerate);
+void stAccelerate(Strategy* st) { st->data++; }
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stStopDead);
 
@@ -888,11 +1272,20 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stCollectKey);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stRemoveKey);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stShowBonus);
+void stShowBonus(Strategy* st) {
+    st->data++;
+    BonusDisplay = 60;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stShowBonusOn);
+void stShowBonusOn(Strategy* st) {
+    st->data++;
+    BonusDisplay = -1;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stShowBonusOff);
+void stShowBonusOff(Strategy* st) {
+    st->data++;
+    BonusDisplay = 0;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stAddPickup);
 
@@ -908,7 +1301,10 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stRemoveCrystal);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stCollectJigsaw);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLevelStats);
+void stLevelStats(Strategy* st) {
+    st->data++;
+    InitStats();
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", LoadAmbient);
 
@@ -916,9 +1312,9 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SEQLoad);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SEQPlay);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SEQPause);
+void SEQPause(void) { SsSeqStop(0); }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SEQResume);
+void SEQResume(void) { SsSeqPlay(0, 1, 0); }
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SEQFadeUp);
 
@@ -926,7 +1322,12 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SEQFadeOut);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SEQHalveVolume);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SEQStop);
+void SEQStop(void) {
+    SFXStopAll(1);
+    SsVabClose(0);
+    SsSeqClose(0);
+    SsEnd();
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", InitPanel);
 
@@ -2054,9 +2455,14 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CdControlF);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CdControlB);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CdMix);
+void CD_vol(CdlATV* vol);
+s32 CdMix(CdlATV* vol) {
+    CD_vol(vol);
+    return 1;
+}
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CdGetSector);
+s32 CD_getsector(void* madr, s32 size);
+s32 CdGetSector(void* madr, s32 size) { return CD_getsector(madr, size) == 0; }
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CdGetSector2);
 
@@ -2092,13 +2498,16 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CD_getsector);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CD_getsector2);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CD_set_test_parmnum);
+extern s32 D_80073A98;
+void CD_set_test_parmnum(s32 arg0) { D_80073A98 = arg0; }
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", callback);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CdSearchFile);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", _cmp);
+s32 _cmp(const char* str1, const char* str2) {
+    return strncmp(str1, str2, 12) == 0;
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", CD_newmedia);
 

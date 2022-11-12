@@ -1,6 +1,6 @@
 #include "common.h"
-#include <libsnd.h>
 #include <libcd.h>
+#include <libsnd.h>
 
 #define FLAGS_PLAYERACTION_UNK02 0x00000002
 #define FLAGS_PLAYERACTION_UNK04 0x00000004
@@ -40,7 +40,11 @@ typedef struct {
     /* 01C */ s32 unk1C;
     /* 020 */ s32 unk20;
     /* 024 */ s32 unk24;
-    /* 028 */ s8 unk28[0x11C];
+    /* 028 */ s8 unk28[0x10C];
+    /* 134 */ s32 unk134;
+    /* 138 */ s32 unk138;
+    /* 13C */ s32* unk13C;
+    /* 140 */ s32 unk140;
     /* 144 */ s32 unk144;
     /* 148 */ s32 unk148;
     /* 14C */ s32 unk14C;
@@ -380,11 +384,13 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", QuickReset);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stInitStrategyCode);
 
-void push_stack(s8* data);
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", push_stack);
+void push_stack(Strategy* st, s8* data) { *(st->unk13C++) = data; }
 
-s8* pop_stack();
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", pop_stack);
+s8* pop_stack(Strategy* arg0) {
+    s32* stack = arg0->unk13C;
+    arg0->unk13C--;
+    return stack[-1];
+}
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stAddStrategy);
 
@@ -511,11 +517,7 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stPrint);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stWait);
 
-#ifndef NON_MATCHING
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stRepeat);
-#else
-void stRepeat(Strategy* st) { push_stack(st->data++); }
-#endif
+void stRepeat(Strategy* st) { push_stack(st, st->data++); }
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stUntil);
 
@@ -661,18 +663,12 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stWaitEvent);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stLetAVar);
 
-void stEndProc(Strategy* st) { st->data = pop_stack(); }
+void stEndProc(Strategy* st) { st->data = pop_stack(st); }
 
-#ifndef NON_MATCHING
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stProcCall);
-#else
 void stProcCall(Strategy* st) {
-    u8* stack = st->data;
-    st->data++;
-    push_stack(stack + 3);
+    push_stack(st, st->data++ + 3);
     st->data = getPCword(st) + st->unk4;
 }
-#endif
 
 #ifndef NON_MATCHING
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", stGoto);
@@ -2265,11 +2261,24 @@ INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", _SsVmSetVol);
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", _SsVmVSetUp);
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SsSetMono);
+extern s16 _svm_stereo_mono;
+void SsSetMono(void) { _svm_stereo_mono = 1; }
 
-INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SsSetStereo);
+void SsSetStereo(void) { _svm_stereo_mono = 0; }
 
+#ifndef NON_MATCHING
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SsSetReservedVoice);
+#else
+extern s8 _SsVmMaxVoice;
+char SsSetReservedVoice(char arg0) {
+    if (arg0 >= 25 || arg0 == 0) {
+        return -1;
+    }
+
+    _SsVmMaxVoice = arg0;
+    return arg0;
+}
+#endif
 
 INCLUDE_ASM("config/../asm/croc/nonmatchings/3038", SsVabClose);
 

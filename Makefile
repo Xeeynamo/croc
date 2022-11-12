@@ -120,8 +120,8 @@ extract_croc: require-tools
 $(CONFIG_DIR)/symbols.%.txt:
 
 decompile: $(M2C_APP)
-	$(M2CTX) $(SOURCE)
-	$(M2C_APP) $(M2C_ARGS) --target mipsel-gcc-c --context ctx.c $(FUNC) $(ASSEMBLY)
+	$(M2CTX) src/croc/3038.c
+	$(M2C_APP) $(M2C_ARGS) --target mipsel-gcc-c --context ctx.c asm/croc/nonmatchings/3038/$(FUNC).s
 
 require-tools: $(SPLAT_APP) $(ASMDIFFER_APP) $(GO)
 update-dependencies: require-tools $(M2CTX_APP) $(M2C_APP)

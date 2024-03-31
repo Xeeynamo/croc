@@ -1,7 +1,3 @@
-CROC.EXE
-
-iso/
-
 ctx.c
 ctx.c.m2c
 *.ld
@@ -16,5 +12,3 @@ asm/*/nonmatchings/*/*/*.s
 assets/
 build/
 expected/
-
-tools/go

@@ -16,7 +16,7 @@ This decompilation is based on the European demo SLED-00038. This was decided as
  1. Inside the folder of your choice `git clone https://github.com/Xeeynamo/croc.git`
  1. Run `sudo apt-get install -y $(cat tools/requirements-debian.txt)`
  1. Run `make update-dependencies`
- 1. Inside the newly created repo, create a new `iso/` folder, and extract the content of the game disc
+ 1. Copy the content of the disk inside `disks/{game_version}`
 
 ## How to build
 

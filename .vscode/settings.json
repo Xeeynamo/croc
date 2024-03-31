@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "libcd.h": "c",
+        "common.h": "c",
+        "types.h": "c"
+    }
+}

@@ -50,9 +50,9 @@ M2C_DIR         := $(TOOLS_DIR)/m2c
 M2C_APP         := $(M2C_DIR)/m2c.py
 M2C             := $(PYTHON) $(M2C_APP)
 M2C_ARGS		:= -P 4
-GO				:= $(TOOLS_DIR)/go/bin/go
-GOPATH			:= $(HOME)/go
-ASPATCH			:= $(GOPATH)/bin/aspatch
+MASPSX_DIR      := $(TOOLS_DIR)/maspsx
+MASPSX_APP      := $(MASPSX_DIR)/maspsx.py
+MASPSX          := $(PYTHON) $(MASPSX_APP) --expand-div --aspsx-version=2.56
 
 define list_src_files
 	$(foreach dir,$(ASM_DIR)/$(1),$(wildcard $(dir)/**.s))
@@ -88,7 +88,7 @@ format:
 	clang-format -i $$(find $(SRC_DIR)/ -type f -name "*.c")
 	clang-format -i $$(find $(INCLUDE_DIR)/ -type f -name "*.h")
 check:
-	sha1sum --check sled00038.sha
+	sha1sum --check config/check.sled00038.sha
 expected: check
 	rm -rf expected/build
 	cp -r build expected/
@@ -116,17 +116,16 @@ $(BUILD_DIR)/%.elf: $$(call list_o_files,$$*)
 
 extract: extract_croc
 extract_croc: require-tools
-	$(SPLAT) $(CONFIG_DIR)/splat.croc-sled00038.yml
+	$(SPLAT) $(CONFIG_DIR)/splat.sled00038.croc.yml
 $(CONFIG_DIR)/symbols.%.txt:
 
 decompile: $(M2C_APP)
 	$(M2CTX) src/croc/3038.c
 	$(M2C_APP) $(M2C_ARGS) --target mipsel-gcc-c --context ctx.c asm/croc/nonmatchings/3038/$(FUNC).s
 
-require-tools: $(SPLAT_APP) $(ASMDIFFER_APP) $(GO)
+require-tools: $(SPLAT_APP) $(ASMDIFFER_APP)
 update-dependencies: require-tools $(M2CTX_APP) $(M2C_APP)
 	pip3 install -r $(TOOLS_DIR)/requirements-python.txt
-	$(GO) install github.com/xeeynamo/sotn-decomp/tools/aspatch@latest
 
 $(SPLAT_APP):
 	git submodule init $(SPLAT_DIR)
@@ -141,19 +140,16 @@ $(M2C_APP):
 	git submodule init $(M2C_DIR)
 	git submodule update $(M2C_DIR)
 	python3 -m pip install --upgrade pycparser
-$(GO):
-	curl -L -o go1.19.3.linux-amd64.tar.gz https://go.dev/dl/go1.19.3.linux-amd64.tar.gz
-	tar -C $(TOOLS_DIR) -xzf go1.19.3.linux-amd64.tar.gz
-	rm go1.19.3.linux-amd64.tar.gz
-$(ASPATCH): $(GO)
-	$(GO) install github.com/xeeynamo/sotn-decomp/tools/aspatch@latest
+$(MASPSX_APP):
+	git submodule init $(MASPSX_DIR)
+	git submodule update $(MASPSX_DIR)
 
 $(BUILD_DIR)/%.s.o: %.s
 	$(AS) $(AS_FLAGS) -o $@ $<
 $(BUILD_DIR)/%.bin.o: %.bin
 	$(LD) -r -b binary -o -Map %.map $@ $<
-$(BUILD_DIR)/%.c.o: %.c $(ASPATCH)
-	$(CPP) $(CPP_FLAGS) $< | $(CC) $(CC_FLAGS) | $(AS) $(AS_FLAGS) -o $@
+$(BUILD_DIR)/%.c.o: %.c $(MASPSX_APP)
+	$(CPP) $(CPP_FLAGS) $< | $(CC) $(CC_FLAGS) | $(MASPSX) | $(AS) $(AS_FLAGS) -o $@
 
 SHELL = /bin/bash -e -o pipefail
 

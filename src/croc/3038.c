@@ -2432,7 +2432,8 @@ INCLUDE_ASM("asm/croc/nonmatchings/3038", def_cbready);
 
 INCLUDE_ASM("asm/croc/nonmatchings/3038", def_cbread);
 
-INCLUDE_ASM("asm/croc/nonmatchings/3038", CdStatus);
+extern u8 CD_status;
+s32 CdStatus(void) { return CD_status; }
 
 INCLUDE_ASM("asm/croc/nonmatchings/3038", CdMode);
 

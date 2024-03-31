@@ -1551,7 +1551,7 @@ INCLUDE_ASM("asm/croc/nonmatchings/3038", sin_1);
 
 INCLUDE_ASM("asm/croc/nonmatchings/3038", rcos);
 
-INCLUDE_ASM("asm/croc/nonmatchings/3038", func_8005402C);
+INCLUDE_ASM("hasm", func_8005402C);
 
 INCLUDE_ASM("asm/croc/nonmatchings/3038", InitGeom);
 

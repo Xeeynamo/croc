@@ -45,7 +45,7 @@ extern char tolower(char);
 #define isgraph(c) ((_ctype_ + 1)[(unsigned char)(c)] & (_P | _U | _L | _N))
 #define iscntrl(c) ((_ctype_ + 1)[(unsigned char)(c)] & _C)
 #define isascii(c) ((unsigned)(c) <= 0x7f)
-#define toascii(c) ((unsigned char)(c)&0x7f)
+#define toascii(c) ((unsigned char)(c) & 0x7f)
 #define _toupper(c) ((unsigned char)(c) - 'a' + 'A')
 #define _tolower(c) ((unsigned char)(c) - 'A' + 'a')
 

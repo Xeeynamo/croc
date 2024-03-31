@@ -86,7 +86,9 @@ clean:
 	git clean -fx
 format:
 	clang-format -i $$(find $(SRC_DIR)/ -type f -name "*.c")
+	clang-format -i $$(find $(SRC_DIR)/ -type f -name "*.h")
 	clang-format -i $$(find $(INCLUDE_DIR)/ -type f -name "*.h")
+	black tools/*.py
 check:
 	sha1sum --check config/check.sled00038.sha
 expected: check

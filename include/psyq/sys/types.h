@@ -16,7 +16,7 @@
 #define major(x) ((int)(((unsigned)(x) >> 8) & 0377))
 
 /* minor part of a device */
-#define minor(x) ((int)((x)&0377))
+#define minor(x) ((int)((x) & 0377))
 
 /* make a device number */
 #define makedev(x, y) ((dev_t)(((x) << 8) | (y)))
@@ -54,7 +54,7 @@ typedef unsigned long ulong; /* sys V compat */
 
 typedef struct _physadr {
     int r[1];
-} * physadr;
+}* physadr;
 typedef struct label_t {
     int val[12];
 } label_t;

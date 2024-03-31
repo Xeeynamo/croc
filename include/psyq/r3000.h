@@ -27,9 +27,9 @@
  * Address conversion macros
  */
 #define K0_TO_K1(x) ((unsigned)(x) | 0xA0000000)   /* kseg0 to kseg1 */
-#define K1_TO_K0(x) ((unsigned)(x)&0x9FFFFFFF)     /* kseg1 to kseg0 */
-#define K0_TO_PHYS(x) ((unsigned)(x)&0x1FFFFFFF)   /* kseg0 to physical */
-#define K1_TO_PHYS(x) ((unsigned)(x)&0x1FFFFFFF)   /* kseg1 to physical */
+#define K1_TO_K0(x) ((unsigned)(x) & 0x9FFFFFFF)   /* kseg1 to kseg0 */
+#define K0_TO_PHYS(x) ((unsigned)(x) & 0x1FFFFFFF) /* kseg0 to physical */
+#define K1_TO_PHYS(x) ((unsigned)(x) & 0x1FFFFFFF) /* kseg1 to physical */
 #define PHYS_TO_K0(x) ((unsigned)(x) | 0x80000000) /* physical to kseg0 */
 #define PHYS_TO_K1(x) ((unsigned)(x) | 0xA0000000) /* physical to kseg1 */
 

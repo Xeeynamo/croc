@@ -224,8 +224,8 @@ extern short SsUtKeyOnV(short voice, short vabId, short prog, short tone,
 extern short SsUtKeyOffV(short voice);
 extern short SsUtPitchBend(short, short, short, short, short);
 extern short SsUtChangePitch(short, short, short, short, short, short, short);
-extern short SsUtChangeADSR(short, short, short, short, unsigned short,
-                            unsigned short);
+extern short SsUtChangeADSR(
+    short, short, short, short, unsigned short, unsigned short);
 extern short SsUtSetVabHdr(short, VabHdr*);
 extern short SsUtGetVabHdr(short, VabHdr*);
 extern short SsUtSetProgAtr(short, short, ProgAtr*);
@@ -252,8 +252,8 @@ extern short SsVabFakeHead(unsigned char*, short, unsigned long);
 extern short SsVabFakeBody(short);
 extern unsigned long SsUtGetVBaddrInSB(short);
 extern long SsUtGetVagAddr(short vabId, short vagId);
-extern unsigned long SsUtGetVagAddrFromTone(short vabId, short progId,
-                                            short toneId);
+extern unsigned long SsUtGetVagAddrFromTone(
+    short vabId, short progId, short toneId);
 extern void SsSetNext(short, short, short, short);
 extern void SsSeqGetVol(short, short, short*, short*);
 extern void SsChannelMute(short, short, long);
@@ -333,46 +333,46 @@ extern void _SsContRpn1(short, short, unsigned char);
 extern void _SsContRpn2(short, short, unsigned char);
 extern void _SsContResetAll(short, short);
 
-extern void _SsSetNrpnVabAttr0(short, short, short, VagAtr, short,
-                               unsigned char);
-extern void _SsSetNrpnVabAttr1(short, short, short, VagAtr, short,
-                               unsigned char);
-extern void _SsSetNrpnVabAttr2(short, short, short, VagAtr, short,
-                               unsigned char);
-extern void _SsSetNrpnVabAttr3(short, short, short, VagAtr, short,
-                               unsigned char);
-extern void _SsSetNrpnVabAttr4(short, short, short, VagAtr, short,
-                               unsigned char);
-extern void _SsSetNrpnVabAttr5(short, short, short, VagAtr, short,
-                               unsigned char);
-extern void _SsSetNrpnVabAttr6(short, short, short, VagAtr, short,
-                               unsigned char);
-extern void _SsSetNrpnVabAttr7(short, short, short, VagAtr, short,
-                               unsigned char);
-extern void _SsSetNrpnVabAttr8(short, short, short, VagAtr, short,
-                               unsigned char);
-extern void _SsSetNrpnVabAttr9(short, short, short, VagAtr, short,
-                               unsigned char);
-extern void _SsSetNrpnVabAttr10(short, short, short, VagAtr, short,
-                                unsigned char);
-extern void _SsSetNrpnVabAttr11(short, short, short, VagAtr, short,
-                                unsigned char);
-extern void _SsSetNrpnVabAttr12(short, short, short, VagAtr, short,
-                                unsigned char);
-extern void _SsSetNrpnVabAttr13(short, short, short, VagAtr, short,
-                                unsigned char);
-extern void _SsSetNrpnVabAttr14(short, short, short, VagAtr, short,
-                                unsigned char);
-extern void _SsSetNrpnVabAttr15(short, short, short, VagAtr, short,
-                                unsigned char);
-extern void _SsSetNrpnVabAttr16(short, short, short, VagAtr, short,
-                                unsigned char);
-extern void _SsSetNrpnVabAttr17(short, short, short, VagAtr, short,
-                                unsigned char);
-extern void _SsSetNrpnVabAttr18(short, short, short, VagAtr, short,
-                                unsigned char);
-extern void _SsSetNrpnVabAttr19(short, short, short, VagAtr, short,
-                                unsigned char);
+extern void _SsSetNrpnVabAttr0(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr1(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr2(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr3(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr4(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr5(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr6(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr7(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr8(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr9(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr10(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr11(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr12(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr13(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr14(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr15(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr16(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr17(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr18(
+    short, short, short, VagAtr, short, unsigned char);
+extern void _SsSetNrpnVabAttr19(
+    short, short, short, VagAtr, short, unsigned char);
 
 extern void dmy_nothing1(short, short, unsigned char, unsigned char);
 extern void dmy_SsNoteOn(short, short, unsigned char, unsigned char);
@@ -392,46 +392,46 @@ extern void dmy_SsContNrpn2(short, short, unsigned char);
 extern void dmy_SsContRpn1(short, short, unsigned char);
 extern void dmy_SsContRpn2(short, short, unsigned char);
 extern void dmy_SsContResetAll(short, short);
-extern void dmy_SsSetNrpnVabAttr0(short, short, short, VagAtr, short,
-                                  unsigned char);
-extern void dmy_SsSetNrpnVabAttr1(short, short, short, VagAtr, short,
-                                  unsigned char);
-extern void dmy_SsSetNrpnVabAttr2(short, short, short, VagAtr, short,
-                                  unsigned char);
-extern void dmy_SsSetNrpnVabAttr3(short, short, short, VagAtr, short,
-                                  unsigned char);
-extern void dmy_SsSetNrpnVabAttr4(short, short, short, VagAtr, short,
-                                  unsigned char);
-extern void dmy_SsSetNrpnVabAttr5(short, short, short, VagAtr, short,
-                                  unsigned char);
-extern void dmy_SsSetNrpnVabAttr6(short, short, short, VagAtr, short,
-                                  unsigned char);
-extern void dmy_SsSetNrpnVabAttr7(short, short, short, VagAtr, short,
-                                  unsigned char);
-extern void dmy_SsSetNrpnVabAttr8(short, short, short, VagAtr, short,
-                                  unsigned char);
-extern void dmy_SsSetNrpnVabAttr9(short, short, short, VagAtr, short,
-                                  unsigned char);
-extern void dmy_SsSetNrpnVabAttr10(short, short, short, VagAtr, short,
-                                   unsigned char);
-extern void dmy_SsSetNrpnVabAttr11(short, short, short, VagAtr, short,
-                                   unsigned char);
-extern void dmy_SsSetNrpnVabAttr12(short, short, short, VagAtr, short,
-                                   unsigned char);
-extern void dmy_SsSetNrpnVabAttr13(short, short, short, VagAtr, short,
-                                   unsigned char);
-extern void dmy_SsSetNrpnVabAttr14(short, short, short, VagAtr, short,
-                                   unsigned char);
-extern void dmy_SsSetNrpnVabAttr15(short, short, short, VagAtr, short,
-                                   unsigned char);
-extern void dmy_SsSetNrpnVabAttr16(short, short, short, VagAtr, short,
-                                   unsigned char);
-extern void dmy_SsSetNrpnVabAttr17(short, short, short, VagAtr, short,
-                                   unsigned char);
-extern void dmy_SsSetNrpnVabAttr18(short, short, short, VagAtr, short,
-                                   unsigned char);
-extern void dmy_SsSetNrpnVabAttr19(short, short, short, VagAtr, short,
-                                   unsigned char);
+extern void dmy_SsSetNrpnVabAttr0(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr1(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr2(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr3(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr4(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr5(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr6(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr7(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr8(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr9(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr10(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr11(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr12(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr13(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr14(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr15(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr16(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr17(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr18(
+    short, short, short, VagAtr, short, unsigned char);
+extern void dmy_SsSetNrpnVabAttr19(
+    short, short, short, VagAtr, short, unsigned char);
 
 extern _SsFCALL SsFCALL;
 

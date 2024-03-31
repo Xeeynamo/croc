@@ -94,10 +94,10 @@ extern int (*GPU_printf)(); /* printf() object */
 
 #define dumpMatrix(x)                                                          \
     GPU_printf("\t%5d,%5d,%5d\n", (x)->m[0][0], (x)->m[0][1], (x)->m[0][2]),   \
-        GPU_printf("\t%5d,%5d,%5d\n", (x)->m[1][0], (x)->m[1][1],              \
-                   (x)->m[1][2]),                                              \
-        GPU_printf("\t%5d,%5d,%5d\n", (x)->m[2][0], (x)->m[2][1],              \
-                   (x)->m[2][2])
+        GPU_printf(                                                            \
+            "\t%5d,%5d,%5d\n", (x)->m[1][0], (x)->m[1][1], (x)->m[1][2]),      \
+        GPU_printf(                                                            \
+            "\t%5d,%5d,%5d\n", (x)->m[2][0], (x)->m[2][1], (x)->m[2][2])
 
 #define setRECT(r, _x, _y, _w, _h)                                             \
     (r)->x = (_x), (r)->y = (_y), (r)->w = (_w), (r)->h = (_h)
@@ -228,8 +228,8 @@ extern int (*GPU_printf)(); /* printf() object */
     ((tge) ? setcode(p, getcode(p) | 0x01) : setcode(p, getcode(p) & ~0x01))
 
 #define getTPage(tp, abr, x, y)                                                \
-    ((((tp)&0x3) << 7) | (((abr)&0x3) << 5) | (((y)&0x100) >> 4) |             \
-     (((x)&0x3ff) >> 6) | (((y)&0x200) << 2))
+    ((((tp) & 0x3) << 7) | (((abr) & 0x3) << 5) | (((y) & 0x100) >> 4) |       \
+     (((x) & 0x3ff) >> 6) | (((y) & 0x200) << 2))
 
 #define getClut(x, y) ((y << 6) | ((x >> 4) & 0x3f))
 
@@ -243,7 +243,7 @@ extern int (*GPU_printf)(); /* printf() object */
 
 #define _get_mode(dfe, dtd, tpage)                                             \
     ((0xe1000000) | ((dtd) ? 0x0200 : 0) | ((dfe) ? 0x0400 : 0) |              \
-     ((tpage)&0x9ff))
+     ((tpage) & 0x9ff))
 
 #define setDrawTPage(p, dfe, dtd, tpage)                                       \
     setlen(p, 1), ((u_long*)(p))[1] = _get_mode(dfe, dtd, tpage)
@@ -699,8 +699,8 @@ extern u_short GetClut(int x, int y);
 extern u_short GetTPage(int tp, int abr, int x, int y);
 extern u_short LoadClut(u_long* clut, int x, int y);
 extern u_short LoadClut2(u_long* clut, int x, int y);
-extern u_short LoadTPage(u_long* pix, int tp, int abr, int x, int y, int w,
-                         int h);
+extern u_short LoadTPage(
+    u_long* pix, int tp, int abr, int x, int y, int w, int h);
 extern void* NextPrim(void* p);
 extern void AddPrim(void* ot, void* p);
 extern void AddPrims(void* ot, void* p0, void* p1);

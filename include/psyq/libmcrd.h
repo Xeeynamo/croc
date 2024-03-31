@@ -36,11 +36,11 @@ extern long MemCardAccept(long chan);
 extern long MemCardOpen(long chan, char* fnam, unsigned long flag);
 extern void MemCardClose(void);
 extern long MemCardReadData(long* adrs, long ofs, long bytes);
-extern long MemCardReadFile(long chan, char* fnam, long* adrs, long ofs,
-                            long bytes);
+extern long MemCardReadFile(
+    long chan, char* fnam, long* adrs, long ofs, long bytes);
 extern long MemCardWriteData(long* adrs, long ofs, long bytes);
-extern long MemCardWriteFile(long chan, char* fnam, long* adrs, long ofs,
-                             long bytes);
+extern long MemCardWriteFile(
+    long chan, char* fnam, long* adrs, long ofs, long bytes);
 extern long MemCardCreateFile(long chan, char* fnam, long blocks);
 extern long MemCardDeleteFile(long chan, char* fnam);
 extern long MemCardFormat(long chan);

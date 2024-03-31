@@ -290,8 +290,8 @@
         gte_stszotz(r7);                                                       \
     }
 
-#define gte_RotColorDpq3(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12,    \
-                         r13, r14, r15)                                        \
+#define gte_RotColorDpq3(                                                      \
+    r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15)          \
     {                                                                          \
         gte_ldv3(r1, r2, r3);                                                  \
         gte_rtpt();                                                            \
@@ -304,8 +304,8 @@
         gte_stszotz(r15);                                                      \
     }
 
-#define gte_RotAverageNclipColorDpq3(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10,  \
-                                     r11, r12, r13, r14, r15, r16)             \
+#define gte_RotAverageNclipColorDpq3(                                          \
+    r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16)     \
     {                                                                          \
         gte_ldv3(r1, r2, r3);                                                  \
         gte_rtpt();                                                            \
@@ -321,8 +321,8 @@
         gte_stotz(r14);                                                        \
     }
 
-#define gte_RotAverageNclipColorCol3(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10,  \
-                                     r11, r12, r13, r14, r15, r16)             \
+#define gte_RotAverageNclipColorCol3(                                          \
+    r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16)     \
     {                                                                          \
         gte_ldv3(r1, r2, r3);                                                  \
         gte_rtpt();                                                            \

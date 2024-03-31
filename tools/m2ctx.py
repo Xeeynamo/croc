@@ -13,17 +13,18 @@ src_dir = root_dir + "src/"
 # Project-specific
 CPP_FLAGS = [
     "-Iinclude",
-    "-Iinclude/psyq",
     "-Isrc",
     "-Iver/current/build/include",
     "-D_LANGUAGE_C",
     "-DF3DEX_GBI_2",
     "-D_MIPS_SZLONG=32",
     "-DSCRIPT(...)={}",
+    "-D__attribute__(...)=",
     "-D__asm__(...)=",
     "-ffreestanding",
     "-DM2CTX",
 ]
+
 
 def import_c_file(in_file) -> str:
     in_file = os.path.relpath(in_file, root_dir)
@@ -31,18 +32,22 @@ def import_c_file(in_file) -> str:
     cpp_command2 = ["gcc", "-E", "-P", *CPP_FLAGS, in_file]
 
     with tempfile.NamedTemporaryFile(suffix=".c") as tmp:
-        stock_macros = subprocess.check_output(["gcc", "-E", "-P", "-dM", tmp.name], cwd=root_dir, encoding="utf-8")
+        stock_macros = subprocess.check_output(
+            ["gcc", "-E", "-P", "-dM", tmp.name], cwd=root_dir, encoding="utf-8"
+        )
 
     out_text = ""
     try:
         out_text += subprocess.check_output(cpp_command, cwd=root_dir, encoding="utf-8")
-        out_text += subprocess.check_output(cpp_command2, cwd=root_dir, encoding="utf-8")
+        out_text += subprocess.check_output(
+            cpp_command2, cwd=root_dir, encoding="utf-8"
+        )
     except subprocess.CalledProcessError:
         print(
             "Failed to preprocess input file, when running command:\n"
-            + ' '.join(cpp_command),
+            + " ".join(cpp_command),
             file=sys.stderr,
-            )
+        )
         sys.exit(1)
 
     if not out_text:
@@ -53,9 +58,10 @@ def import_c_file(in_file) -> str:
         out_text = out_text.replace(line + "\n", "")
     return out_text
 
+
 def main():
     parser = argparse.ArgumentParser(
-        description="""Create a context file which can be used for mips_to_c"""
+        description="""Create a context file which can be used for m2c / decomp.me"""
     )
     parser.add_argument(
         "c_file",

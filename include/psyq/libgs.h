@@ -581,9 +581,10 @@ struct TMD_STRUCT {
                             : 0
 
 #define minmax3(x1, x2, x3, x4, x5)                                            \
-    x1 > x2 ? (x5 = x1, x4 = x2) : (x4 = x1, x5 = x2), x3 > x5   ? x5 = x3     \
-                                                       : x3 < x4 ? x4 = x3     \
-                                                                 : 0
+    x1 > x2 ? (x5 = x1, x4 = x2) : (x4 = x1, x5 = x2),                         \
+        x3 > x5   ? x5 = x3                                                    \
+        : x3 < x4 ? x4 = x3                                                    \
+                  : 0
 
 typedef struct {
     short vx, vy, vz;
@@ -1145,19 +1146,19 @@ void GsSortObject5(GsDOBJ5* objp, GsOT* ot, int shift, u_long* scratch);
 void GsSortObject5J(GsDOBJ5* objp, GsOT* ot, int shift, u_long* scratch);
 
 void GsSortSprite(GsSPRITE* sp, GsOT* ot, unsigned short pri);
-void GsSortSpriteB(GsSPRITE* sp, GsOT* ot, unsigned short pri,
-                   unsigned short flip);
+void GsSortSpriteB(
+    GsSPRITE* sp, GsOT* ot, unsigned short pri, unsigned short flip);
 void GsSortFastSprite(GsSPRITE* sp, GsOT* ot, unsigned short pri);
-void GsSortFastSpriteB(GsSPRITE* sp, GsOT* ot, unsigned short pri,
-                       unsigned short flip);
+void GsSortFastSpriteB(
+    GsSPRITE* sp, GsOT* ot, unsigned short pri, unsigned short flip);
 void GsSortFlipSprite(GsSPRITE* sp, GsOT* ot, unsigned short pri);
 void GsInitFastSpriteArray(GsSPARRAY* sp, short n);
-void GsSetFastSpriteArray(GsSPARRAY* sp, unsigned short w, unsigned short h,
-                          unsigned short tpage, unsigned char u,
-                          unsigned char v, unsigned short cx, unsigned short cy,
-                          unsigned char r, unsigned char g, unsigned char b);
-void GsSortFastSpriteArray(GsSPARRAY* sp, unsigned short n, GsOT* ot,
-                           unsigned short pri);
+void GsSetFastSpriteArray(
+    GsSPARRAY* sp, unsigned short w, unsigned short h, unsigned short tpage,
+    unsigned char u, unsigned char v, unsigned short cx, unsigned short cy,
+    unsigned char r, unsigned char g, unsigned char b);
+void GsSortFastSpriteArray(
+    GsSPARRAY* sp, unsigned short n, GsOT* ot, unsigned short pri);
 void GsSortBg(GsBG* bg, GsOT* ot, unsigned short pri);
 void GsSortFastBg(GsBG* bg, GsOT* ot, unsigned short pri);
 void GsInitFixBg16(GsBG* bg, u_long* work);
@@ -1172,8 +1173,8 @@ void GsSortPoly(void* pp, GsOT* ot, unsigned short pri);
 void GsClearOt(unsigned short offset, unsigned short point, GsOT* otp);
 GsOT* GsSortOt(GsOT* ot_src, GsOT* ot_dest);
 GsOT* GsCutOt(GsOT* ot_src, GsOT* ot_dest);
-void GsDefDispBuff(unsigned short x0, unsigned short y0, unsigned short x1,
-                   unsigned short y1);
+void GsDefDispBuff(
+    unsigned short x0, unsigned short y0, unsigned short x1, unsigned short y1);
 void GsSortClear(unsigned char, unsigned char, unsigned char, GsOT*);
 void GsGetTimInfo(unsigned long* im, GsIMAGE* tim);
 void GsSwapDispBuff(void);
@@ -1210,12 +1211,12 @@ void GsClearVcount();
 void GsDefDispBuff2(u_short x0, u_short y0, u_short x1, u_short y1);
 void GsDrawOtIO(GsOT* ot);
 PACKET* GsGetWorkBase();
-void GsInitGraph2(u_short x, u_short y, u_short intmode, u_short dith,
-                  u_short vrammode);
+void GsInitGraph2(
+    u_short x, u_short y, u_short intmode, u_short dith, u_short vrammode);
 void GsSortObject4J(GsDOBJ2* objp, GsOT* otp, int shift, u_long* scratch);
-void GsInitFastSprite2(GsSPARRAY* sp, u_short pri, short w, short h,
-                       u_short tpage, u_short cba, u_char u, u_char v, u_char r,
-                       u_char g, u_char b);
+void GsInitFastSprite2(
+    GsSPARRAY* sp, u_short pri, short w, short h, u_short tpage, u_short cba,
+    u_char u, u_char v, u_char r, u_char g, u_char b);
 void GsSortFastSprite2(GsSPARRAY* sp, u_short n, GsOT* otp, u_short pri);
 void GsClearDispArea(unsigned char r, unsigned char g, unsigned char b);
 

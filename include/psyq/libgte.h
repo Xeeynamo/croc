@@ -384,63 +384,61 @@ extern void OuterProduct12(VECTOR* v0, VECTOR* v1, VECTOR* v2);
 extern void OuterProduct0(VECTOR* v0, VECTOR* v1, VECTOR* v2);
 extern long Lzc(long data);
 
-extern long RotTransPers4(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                          long* sxy0, long* sxy1, long* sxy2, long* sxy3,
-                          long* p, long* flag);
-extern void RotTransPersN(SVECTOR* v0, DVECTOR* v1, u_short* sz, u_short* p,
-                          u_short* flag, long n);
-extern void RotTransPers3N(SVECTOR* v0, DVECTOR* v1, u_short* sz, u_short* flag,
-                           long n);
-extern void RotMeshH(short* Yheight, DVECTOR* Vo, u_short* sz, u_short* flag,
-                     short Xoffset, short Zoffset, short m, short n,
-                     DVECTOR* base);
+extern long RotTransPers4(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, long* sxy0, long* sxy1,
+    long* sxy2, long* sxy3, long* p, long* flag);
+extern void RotTransPersN(
+    SVECTOR* v0, DVECTOR* v1, u_short* sz, u_short* p, u_short* flag, long n);
+extern void RotTransPers3N(
+    SVECTOR* v0, DVECTOR* v1, u_short* sz, u_short* flag, long n);
+extern void RotMeshH(
+    short* Yheight, DVECTOR* Vo, u_short* sz, u_short* flag, short Xoffset,
+    short Zoffset, short m, short n, DVECTOR* base);
 extern long RotAverage3(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, long* sxy0,
                         long* sxy1, long* sxy2, long* p, long* flag);
-extern long RotAverage4(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                        long* sxy0, long* sxy1, long* sxy2, long* sxy3, long* p,
-                        long* flag);
+extern long RotAverage4(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, long* sxy0, long* sxy1,
+    long* sxy2, long* sxy3, long* p, long* flag);
 extern long RotNclip3(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, long* sxy0,
                       long* sxy1, long* sxy2, long* p, long* otz, long* flag);
-extern long RotNclip4(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                      long* sxy0, long* sxy1, long* sxy2, long* sxy3, long* p,
-                      long* otz, long* flag);
-extern long RotAverageNclip3(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, long* sxy0,
-                             long* sxy1, long* sxy2, long* p, long* otz,
-                             long* flag);
-extern long RotAverageNclip4(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                             long* sxy0, long* sxy1, long* sxy2, long* sxy3,
-                             long* p, long* otz, long* flag);
-extern long RotColorDpq(SVECTOR* v0, SVECTOR* v1, CVECTOR* v2, long* sxy,
-                        CVECTOR* v3, long* flag);
-extern long RotColorDpq3(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                         SVECTOR* v4, SVECTOR* v5, CVECTOR* v6, long* sxy0,
-                         long* sxy1, long* sxy2, CVECTOR* v7, CVECTOR* v8,
-                         CVECTOR* v9, long* flag);
-extern long RotAverageNclipColorDpq3(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2,
-                                     SVECTOR* v3, SVECTOR* v4, SVECTOR* v5,
-                                     CVECTOR* v6, long* sxy0, long* sxy1,
-                                     long* sxy2, CVECTOR* v7, CVECTOR* v8,
-                                     CVECTOR* v9, long* otz, long* flag);
-extern long RotAverageNclipColorCol3(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2,
-                                     SVECTOR* v3, SVECTOR* v4, SVECTOR* v5,
-                                     CVECTOR* v6, long* sxy0, long* sxy1,
-                                     long* sxy2, CVECTOR* v7, CVECTOR* v8,
-                                     CVECTOR* v9, long* otz, long* flag);
+extern long RotNclip4(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, long* sxy0, long* sxy1,
+    long* sxy2, long* sxy3, long* p, long* otz, long* flag);
+extern long RotAverageNclip3(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, long* sxy0, long* sxy1, long* sxy2,
+    long* p, long* otz, long* flag);
+extern long RotAverageNclip4(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, long* sxy0, long* sxy1,
+    long* sxy2, long* sxy3, long* p, long* otz, long* flag);
+extern long RotColorDpq(
+    SVECTOR* v0, SVECTOR* v1, CVECTOR* v2, long* sxy, CVECTOR* v3, long* flag);
+extern long RotColorDpq3(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, SVECTOR* v4,
+    SVECTOR* v5, CVECTOR* v6, long* sxy0, long* sxy1, long* sxy2, CVECTOR* v7,
+    CVECTOR* v8, CVECTOR* v9, long* flag);
+extern long RotAverageNclipColorDpq3(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, SVECTOR* v4,
+    SVECTOR* v5, CVECTOR* v6, long* sxy0, long* sxy1, long* sxy2, CVECTOR* v7,
+    CVECTOR* v8, CVECTOR* v9, long* otz, long* flag);
+extern long RotAverageNclipColorCol3(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, SVECTOR* v4,
+    SVECTOR* v5, CVECTOR* v6, long* sxy0, long* sxy1, long* sxy2, CVECTOR* v7,
+    CVECTOR* v8, CVECTOR* v9, long* otz, long* flag);
 extern long RotColorMatDpq(SVECTOR* v0, SVECTOR* v1, CVECTOR* v2, long* sxy,
                            CVECTOR* v3, long matc, long flag);
-extern void ColorMatDpq(SVECTOR* v0, CVECTOR* v1, long p, CVECTOR* v2,
-                        long matc);
+extern void ColorMatDpq(
+    SVECTOR* v0, CVECTOR* v1, long p, CVECTOR* v2, long matc);
 extern void ColorMatCol(SVECTOR* v0, CVECTOR* v1, CVECTOR* v2, long matc);
 extern void LoadAverage12(VECTOR* v0, VECTOR* v1, long p0, long p1, VECTOR* v2);
-extern void LoadAverageShort12(SVECTOR* v0, SVECTOR* v1, long p0, long p1,
-                               SVECTOR* v2);
+extern void LoadAverageShort12(
+    SVECTOR* v0, SVECTOR* v1, long p0, long p1, SVECTOR* v2);
 extern void LoadAverage0(VECTOR* v0, VECTOR* v1, long p0, long p1, VECTOR* v2);
-extern void LoadAverageShort0(SVECTOR* v0, SVECTOR* v1, long p0, long p1,
-                              SVECTOR* v2);
-extern void LoadAverageByte(u_char* v0, u_char* v1, long p0, long p1,
-                            u_char* v2);
-extern void LoadAverageCol(u_char* v0, u_char* v1, long p0, long p1,
-                           u_char* v2);
+extern void LoadAverageShort0(
+    SVECTOR* v0, SVECTOR* v1, long p0, long p1, SVECTOR* v2);
+extern void LoadAverageByte(
+    u_char* v0, u_char* v1, long p0, long p1, u_char* v2);
+extern void LoadAverageCol(
+    u_char* v0, u_char* v1, long p0, long p1, u_char* v2);
 extern long VectorNormal(VECTOR* v0, VECTOR* v1);
 extern long VectorNormalS(VECTOR* v0, SVECTOR* v1);
 extern long VectorNormalSS(SVECTOR* v0, SVECTOR* v1);
@@ -472,91 +470,91 @@ extern void RotPMD_G4(long* pa, u_long* ot, int otlen, int id, int backc);
 extern void RotPMD_FT4(long* pa, u_long* ot, int otlen, int id, int backc);
 extern void RotPMD_GT4(long* pa, u_long* ot, int otlen, int id, int backc);
 
-extern void RotPMD_SV_F3(long* pa, long* va, u_long* ot, int otlen, int id,
-                         int backc);
-extern void RotPMD_SV_G3(long* pa, long* va, u_long* ot, int otlen, int id,
-                         int backc);
-extern void RotPMD_SV_FT3(long* pa, long* va, u_long* ot, int otlen, int id,
-                          int backc);
-extern void RotPMD_SV_GT3(long* pa, long* va, u_long* ot, int otlen, int id,
-                          int backc);
-extern void RotPMD_SV_F4(long* pa, long* va, u_long* ot, int otlen, int id,
-                         int backc);
-extern void RotPMD_SV_G4(long* pa, long* va, u_long* ot, int otlen, int id,
-                         int backc);
-extern void RotPMD_SV_FT4(long* pa, long* va, u_long* ot, int otlen, int id,
-                          int backc);
-extern void RotPMD_SV_GT4(long* pa, long* va, u_long* ot, int otlen, int id,
-                          int backc);
+extern void RotPMD_SV_F3(
+    long* pa, long* va, u_long* ot, int otlen, int id, int backc);
+extern void RotPMD_SV_G3(
+    long* pa, long* va, u_long* ot, int otlen, int id, int backc);
+extern void RotPMD_SV_FT3(
+    long* pa, long* va, u_long* ot, int otlen, int id, int backc);
+extern void RotPMD_SV_GT3(
+    long* pa, long* va, u_long* ot, int otlen, int id, int backc);
+extern void RotPMD_SV_F4(
+    long* pa, long* va, u_long* ot, int otlen, int id, int backc);
+extern void RotPMD_SV_G4(
+    long* pa, long* va, u_long* ot, int otlen, int id, int backc);
+extern void RotPMD_SV_FT4(
+    long* pa, long* va, u_long* ot, int otlen, int id, int backc);
+extern void RotPMD_SV_GT4(
+    long* pa, long* va, u_long* ot, int otlen, int id, int backc);
 
-extern void InitClip(EVECTOR* evbfad, long hw, long vw, long h, long near,
-                     long far);
+extern void InitClip(
+    EVECTOR* evbfad, long hw, long vw, long h, long near, long far);
 extern long Clip3F(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, EVECTOR** evmx);
 extern long Clip3FP(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, EVECTOR** evmx);
-extern long Clip4F(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                   EVECTOR** evmx);
-extern long Clip4FP(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                    EVECTOR** evmx);
+extern long Clip4F(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, EVECTOR** evmx);
+extern long Clip4FP(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, EVECTOR** evmx);
 extern long Clip3FT(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, short* uv0,
                     short* uv1, short* uv2, EVECTOR** evmx);
 extern long Clip3FTP(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, short* uv0,
                      short* uv1, short* uv2, EVECTOR** evmx);
-extern long Clip4FT(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                    short* uv0, short* uv1, short* uv2, short* uv3,
-                    EVECTOR** evmx);
-extern long Clip4FTP(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                     short* uv0, short* uv1, short* uv2, short* uv3,
-                     EVECTOR** evmx);
+extern long Clip4FT(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, short* uv0, short* uv1,
+    short* uv2, short* uv3, EVECTOR** evmx);
+extern long Clip4FTP(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, short* uv0, short* uv1,
+    short* uv2, short* uv3, EVECTOR** evmx);
 extern long Clip3G(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, CVECTOR* rgb0,
                    CVECTOR* rgb1, CVECTOR* rgb2, EVECTOR** evmx);
 extern long Clip3GP(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, CVECTOR* rgb0,
                     CVECTOR* rgb1, CVECTOR* rgb2, EVECTOR** evmx);
-extern long Clip4G(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                   CVECTOR* rgb0, CVECTOR* rgb1, CVECTOR* rgb2, CVECTOR* rgb3,
-                   EVECTOR** evmx);
-extern long Clip4GP(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                    CVECTOR* rgb0, CVECTOR* rgb1, CVECTOR* rgb2, CVECTOR* rgb3,
-                    EVECTOR** evmx);
-extern long Clip3GT(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, short* uv0,
-                    short* uv1, short* uv2, CVECTOR* rgb0, CVECTOR* rgb1,
-                    CVECTOR* rgb2, EVECTOR** evmx);
-extern long Clip3GTP(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, short* uv0,
-                     short* uv1, short* uv2, CVECTOR* rgb0, CVECTOR* rgb1,
-                     CVECTOR* rgb2, EVECTOR** evmx);
-extern long Clip4GT(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                    short* uv0, short* uv1, short* uv2, short* uv3,
-                    CVECTOR* rgb0, CVECTOR* rgb1, CVECTOR* rgb2, CVECTOR* rgb3,
-                    EVECTOR** evmx);
-extern long Clip4GTP(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
-                     short* uv0, short* uv1, short* uv2, short* uv3,
-                     CVECTOR* rgb0, CVECTOR* rgb1, CVECTOR* rgb2, CVECTOR* rgb3,
-                     EVECTOR** evmx);
+extern long Clip4G(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, CVECTOR* rgb0,
+    CVECTOR* rgb1, CVECTOR* rgb2, CVECTOR* rgb3, EVECTOR** evmx);
+extern long Clip4GP(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, CVECTOR* rgb0,
+    CVECTOR* rgb1, CVECTOR* rgb2, CVECTOR* rgb3, EVECTOR** evmx);
+extern long Clip3GT(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, short* uv0, short* uv1, short* uv2,
+    CVECTOR* rgb0, CVECTOR* rgb1, CVECTOR* rgb2, EVECTOR** evmx);
+extern long Clip3GTP(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, short* uv0, short* uv1, short* uv2,
+    CVECTOR* rgb0, CVECTOR* rgb1, CVECTOR* rgb2, EVECTOR** evmx);
+extern long Clip4GT(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, short* uv0, short* uv1,
+    short* uv2, short* uv3, CVECTOR* rgb0, CVECTOR* rgb1, CVECTOR* rgb2,
+    CVECTOR* rgb3, EVECTOR** evmx);
+extern long Clip4GTP(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, short* uv0, short* uv1,
+    short* uv2, short* uv3, CVECTOR* rgb0, CVECTOR* rgb1, CVECTOR* rgb2,
+    CVECTOR* rgb3, EVECTOR** evmx);
 
 extern void RotTransPers_nom(SVECTOR* v0);
 extern void RotTransPers3_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2);
-extern void RotTransPers4_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2,
-                              SVECTOR* v3);
+extern void RotTransPers4_nom(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3);
 extern void RotTrans_nom(SVECTOR* v0);
 extern void RotAverage3_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2);
 extern void RotNclip3_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2);
 extern void RotAverageNclip3_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2);
-extern void RotAverageNclipColorDpq3_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2,
-                                         SVECTOR* v3, SVECTOR* v4, SVECTOR* v5,
-                                         CVECTOR* v6);
-extern void RotAverageNclipColorCol3_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2,
-                                         SVECTOR* v3, SVECTOR* v4, SVECTOR* v5,
-                                         CVECTOR* v6);
+extern void RotAverageNclipColorDpq3_nom(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, SVECTOR* v4,
+    SVECTOR* v5, CVECTOR* v6);
+extern void RotAverageNclipColorCol3_nom(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3, SVECTOR* v4,
+    SVECTOR* v5, CVECTOR* v6);
 extern void RotColorDpq_nom(SVECTOR* v0, SVECTOR* v1, CVECTOR* v2);
 extern long RotColorDpq3_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, SVECTOR* v3,
                              SVECTOR* v4, SVECTOR* v5, CVECTOR* v6);
 extern void NormalColor_nom(SVECTOR* v0);
 extern void NormalColor3_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2);
 extern void NormalColorDpq_nom(SVECTOR* v0, CVECTOR* v1, long p);
-extern void NormalColorDpq3_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2,
-                                CVECTOR* v3, long p);
+extern void NormalColorDpq3_nom(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, CVECTOR* v3, long p);
 extern void NormalColorCol_nom(SVECTOR* v0, CVECTOR* v1);
-extern void NormalColorCol3_nom(SVECTOR* v0, SVECTOR* v1, SVECTOR* v2,
-                                CVECTOR* v3);
+extern void NormalColorCol3_nom(
+    SVECTOR* v0, SVECTOR* v1, SVECTOR* v2, CVECTOR* v3);
 
 /*
 

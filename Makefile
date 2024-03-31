@@ -83,7 +83,6 @@ clean:
 	git clean -fdx asm/
 	git clean -fdx $(BUILD_DIR)
 	git clean -fdx config/
-	git clean -fx
 format:
 	clang-format -i $$(find $(SRC_DIR)/ -type f -name "*.c")
 	clang-format -i $$(find $(SRC_DIR)/ -type f -name "*.h")
